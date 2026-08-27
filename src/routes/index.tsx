@@ -1311,6 +1311,12 @@ function Index() {
             </Review>
           </Section>
 
+          <RecommendationSection />
+
+          <ChoosingSections />
+
+
+
           {/* Section 4 */}
           <Section id="who-should-invest" title="Who Should Invest in a Paid AI Course in 2026">
             <div className="article-body">
