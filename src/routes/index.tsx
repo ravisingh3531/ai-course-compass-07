@@ -593,6 +593,8 @@ function Index() {
             </div>
           </Section>
 
+          <ComparisonTable />
+
           {/* Section 3: Reviews */}
           <Section id="reviews" title="In-Depth Reviews: All 10 AI Courses, Ranked by Value for Money">
             <div className="article-body">
