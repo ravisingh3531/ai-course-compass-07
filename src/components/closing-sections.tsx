@@ -309,7 +309,7 @@ export function ClosingSections() {
               "300–500 hours at even a modest valuation of your time is the largest line item on this list. It’s also the best argument for choosing the course you’ll actually finish.",
             ],
           ].map(([title, body], i) => (
-            <NumberCard key={title} n={i + 1} title={title}>
+            <NumberCard key={title as string} n={i + 1} title={title as string}>
               {body}
             </NumberCard>
           ))}
@@ -462,7 +462,7 @@ export function ClosingSections() {
               "The cheapest possible test of whether you’ll finish a 10-hour-a-week course: block 10 hours a week for two weeks before enrolling and spend them on free material. If the hours didn’t happen at ₹0, they won’t happen at ₹1,50,000.",
             ],
           ].map(([title, body], i) => (
-            <NumberCard key={title} n={i + 1} title={title}>
+            <NumberCard key={title as string} n={i + 1} title={title as string}>
               {body}
             </NumberCard>
           ))}
