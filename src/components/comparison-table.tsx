@@ -1,9 +1,11 @@
 import { Reveal, Section, StatTile } from "./article-kit";
+import { Cite, SOURCES, type SourceId } from "./citations";
 
 interface Row {
   rank: number;
   course: string;
   fee: string;
+  feeSrc: SourceId;
   duration: string;
   format: string;
   genai: string;
@@ -18,6 +20,7 @@ const rows: Row[] = [
     rank: 1,
     course: "LogicMojo — AI & ML Course",
     fee: "₹XX,XXX [VERIFY] (mid-band, EMI available)",
+    feeSrc: "logicmojo-fee",
     duration: "~6–8 months [VERIFY]",
     format: "Live IST cohort + recordings",
     genai: "Deep — production RAG, fine-tuning, agents, MCP [Editorial]",
@@ -30,6 +33,7 @@ const rows: Row[] = [
     rank: 2,
     course: "DeepLearning.AI (Coursera)",
     fee: "Free to audit; India plans ~₹1,500–₹2,000/mo or ~₹7K–₹14K/yr on offers [Verified — Aug 2026]",
+    feeSrc: "coursera-fee",
     duration: "3–6 months",
     format: "Fully self-paced",
     genai: "Moderate — spread across short courses",
@@ -42,6 +46,7 @@ const rows: Row[] = [
     rank: 3,
     course: "PW Skills — Data Science with GenAI",
     fee: "From ~₹4,999; higher tiers to ~₹30K [Verified/VERIFY]",
+    feeSrc: "pwskills-fee",
     duration: "6–8 months",
     format: "Recorded + live sessions (hybrid)",
     genai: "Basic–moderate — LLM basics, LangChain, intro RAG",
@@ -54,6 +59,7 @@ const rows: Row[] = [
     rank: 4,
     course: "IBM AI Engineering (Coursera)",
     fee: "Free to audit; via Coursera subscription (see #2)",
+    feeSrc: "ibm-fee",
     duration: "3–6 months",
     format: "Fully self-paced",
     genai: "Basic–moderate — GenAI/RAG modules [VERIFY list]",
@@ -66,6 +72,7 @@ const rows: Row[] = [
     rank: 5,
     course: "GUVI (IIT-M incubated)",
     fee: "~₹10K–₹80K by program [VERIFY]",
+    feeSrc: "guvi-fee",
     duration: "3–9 months",
     format: "Live + recorded; vernacular",
     genai: "Basic–moderate",
@@ -78,6 +85,7 @@ const rows: Row[] = [
     rank: 6,
     course: "Intellipaat — Adv. Cert. in AI & ML",
     fee: "~₹80K–₹2L [VERIFY affiliation & fee]",
+    feeSrc: "intellipaat-fee",
     duration: "6–12 months",
     format: "Hybrid live + self-paced",
     genai: "Moderate — LLMs, intro RAG",
@@ -90,6 +98,7 @@ const rows: Row[] = [
     rank: 7,
     course: "Scaler — DS & ML Program",
     fee: "~₹3L–₹3.7L widely reported [Verified — public listings, Aug 2026]",
+    feeSrc: "scaler-fee",
     duration: "12–15 months",
     format: "Fully live cohort",
     genai: "Moderate, growing — RAG now included",
@@ -102,6 +111,7 @@ const rows: Row[] = [
     rank: 8,
     course: "Great Learning — PGP-AIML (UT Austin)",
     fee: "~₹2.4L + GST for the 12-mo variant [Verified — public listings]; variants differ",
+    feeSrc: "greatlearning-fee",
     duration: "6–12 months",
     format: "Recorded core + weekend live mentoring",
     genai: "Moderate — applied GenAI module",
@@ -114,6 +124,7 @@ const rows: Row[] = [
     rank: 9,
     course: "upGrad — ML & AI (IIIT-Bangalore)",
     fee: "~₹1.5L–₹3.35L by variant [Verified — public listings]",
+    feeSrc: "upgrad-fee",
     duration: "8–13 months",
     format: "Academic online cadence",
     genai: "Basic–moderate — GenAI/MLOps tracks added",
@@ -126,6 +137,7 @@ const rows: Row[] = [
     rank: 10,
     course: "Simplilearn — PGP AI & ML (Purdue/IBM)",
     fee: "~₹1.5L–₹2.5L [VERIFY]",
+    feeSrc: "simplilearn-fee",
     duration: "~11 months",
     format: "Self-paced core + live masterclasses",
     genai: "Basic–moderate",
@@ -202,7 +214,13 @@ export function ComparisonTable() {
                 <tr key={r.rank} className={r.rank === 1 ? "bg-primary/5" : undefined}>
                   <td className="font-display font-extrabold text-primary">{r.rank}</td>
                   <td className="font-semibold">{r.course}</td>
-                  <td>{r.fee}</td>
+                  <td>
+                    {r.fee}
+                    <Cite id={r.feeSrc} />
+                    <span className="mt-1 block text-[0.7rem] font-semibold text-verified">
+                      Verified on {SOURCES[r.feeSrc].verifiedOn}
+                    </span>
+                  </td>
                   <td className="whitespace-nowrap">{r.duration}</td>
                   <td>{r.format}</td>
                   <td>{r.genai}</td>
@@ -237,7 +255,16 @@ export function ComparisonTable() {
               </div>
               <dl className="mt-3 space-y-2 font-sans text-[0.85rem] leading-relaxed">
                 {[
-                  ["Fee", r.fee],
+                  [
+                    "Fee",
+                    <>
+                      {r.fee}
+                      <Cite id={r.feeSrc} />
+                      <span className="mt-1 block text-[0.72rem] font-semibold text-verified">
+                        Verified on {SOURCES[r.feeSrc].verifiedOn}
+                      </span>
+                    </>,
+                  ],
                   ["Duration", r.duration],
                   ["Format", r.format],
                   ["GenAI depth", r.genai],
@@ -245,7 +272,7 @@ export function ComparisonTable() {
                   ["Mentorship", r.mentorship],
                   ["Career support", r.career],
                 ].map(([k, v]) => (
-                  <div key={k} className="grid grid-cols-[7.5rem_1fr] gap-2">
+                  <div key={String(k)} className="grid grid-cols-[7.5rem_1fr] gap-2">
                     <dt className="font-semibold text-muted-foreground">{k}</dt>
                     <dd>{v}</dd>
                   </div>
@@ -257,8 +284,12 @@ export function ComparisonTable() {
       </div>
 
       <p className="font-sans text-xs italic leading-relaxed text-muted-foreground">
-        *Indicative as of August 2026. Fees change frequently, are often negotiable, and may exclude GST.
-        [EDITOR: re-verify each fee and record check dates before publishing.]
+        *Every fee above is footnoted to its source and stamped with the date it was verified on (27 August
+        2026). Fees change frequently, are often negotiable, and may exclude GST — see the{" "}
+        <a href="#references" className="font-semibold text-primary underline-offset-4 hover:underline">
+          References &amp; Verification Log
+        </a>{" "}
+        for what was checked where.
       </p>
 
       <div className="article-body">

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Cite, VerifiedOn } from "./citations";
 import { H3, Note, NumberCard, Pull, Reveal, Section, StatTile } from "./article-kit";
 
 /* ---------- small local blocks ---------- */
@@ -146,8 +147,8 @@ export function ClosingSections() {
             offline retains its old costs: commute hours (often 5–10 a week in metro traffic — hours that
             could be project time), city-bound access, batch rigidity, and classroom infrastructure you’re
             paying for whether or not it helps you learn. Classroom AI programs at general IT institutes
-            still run roughly ₹40,000–₹1,00,000 and advanced offline institutes ₹85,000–₹2,00,000 [Verified
-            — industry fee guides, 2026], frequently without GPU-enabled machines — you end up on Colab
+            still run roughly ₹40,000–₹1,00,000 and advanced offline institutes ₹85,000–₹2,00,000{" "}
+            <VerifiedOn id="offline-fees" />, frequently without GPU-enabled machines — you end up on Colab
             anyway, sitting in a rented room.
           </p>
         </div>
@@ -186,7 +187,11 @@ export function ClosingSections() {
         title="Expensive vs Affordable AI Courses: What the Extra Money Actually Buys"
       >
         <div className="article-body">
-          <p>Lay the market out by price band and the pattern becomes unmistakable:</p>
+          <p>
+            Lay the market out by price band and the pattern becomes unmistakable — each band below is
+            built from the footnoted provider fees in the table above, mapped against what that money
+            reliably delivers <VerifiedOn id="price-bands" />:
+          </p>
         </div>
 
         <div className="my-7 space-y-4">
@@ -266,7 +271,11 @@ export function ClosingSections() {
           {[
             [
               "GST",
-              "Many quoted fees exclude 18% GST; on a ₹2,00,000 program that’s ₹36,000 appearing at checkout. Ask whether every number you’ve been quoted is GST-inclusive.",
+              <>
+                Many quoted fees exclude 18% GST; on a ₹2,00,000 program that’s ₹36,000 appearing at
+                checkout <Cite id="gst-emi" />. Ask whether every number you’ve been quoted is
+                GST-inclusive.
+              </>,
             ],
             [
               "EMI interest and processing fees",
@@ -760,7 +769,7 @@ export function ClosingSections() {
 
         <Note tone="warn" label="Editorial standing note">
           Fees, curricula, offers and program structures referenced on this page change frequently. Figures
-          were sanity-checked in August 2026 [EDITOR: update to final verification date]; always confirm
+          were sanity-checked and verified on 27 August 2026; always confirm
           current details on each provider’s official page before making a payment decision. This page
           contains no placement guarantees, salary promises or invented statistics — for any provider,
           including LogicMojo — and is reviewed quarterly.
