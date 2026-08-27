@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,9 +40,16 @@ function Chip({ kind }: { kind: "verified" | "claim" | "editorial" | "verify" })
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
     <section>
-      <h2 id={id} className="article-h2">
-        {title}
-      </h2>
+      <Reveal>
+        <h2 id={id} className="article-h2">
+          <span
+            aria-hidden
+            className="mb-3 block h-1 w-12 rounded-full"
+            style={{ background: "var(--gradient-primary)" }}
+          />
+          {title}
+        </h2>
+      </Reveal>
       {children}
     </section>
   );
@@ -64,6 +71,37 @@ function H3({ id, children }: { id?: string; children: ReactNode }) {
   );
 }
 
+/* ---------- scroll reveal ---------- */
+
+function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setVisible(true);
+            io.disconnect();
+          }
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className={`reveal${visible ? " is-visible" : ""}`} style={{ animationDelay: `${delay}ms` }}>
+      {children}
+    </div>
+  );
+}
+
 /* ---------- review card ---------- */
 
 interface ReviewProps {
@@ -75,25 +113,39 @@ interface ReviewProps {
 }
 
 function Review({ rank, name, score, tagline, children }: ReviewProps) {
+  const pct = Math.min(100, (parseFloat(score) / 10) * 100 || 0);
   return (
-    <article className="mt-12 rounded-2xl border border-border bg-card p-6 shadow-[0_1px_3px_oklch(0.27_0.025_55/0.06)] sm:p-9">
-      <header className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-5">
-        <div>
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-            #{rank} in this comparison
-          </p>
-          <h3 className="mt-1 font-display text-2xl font-semibold leading-snug">{name}</h3>
-          <p className="mt-1 font-sans text-sm font-medium italic text-muted-foreground">{tagline}</p>
+    <Reveal>
+      <article className="card-lift group relative mt-12 overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] sm:p-9">
+        <div
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-1 opacity-70"
+          style={{ background: "var(--gradient-primary)" }}
+        />
+        <header className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-5">
+          <div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-2.5 py-1 font-sans text-[0.68rem] font-bold uppercase tracking-[0.14em] text-primary">
+              #{rank} in this comparison
+            </span>
+            <h3 className="mt-2.5 font-display text-2xl font-bold leading-snug tracking-tight">{name}</h3>
+            <p className="mt-1 font-sans text-sm font-medium text-muted-foreground">{tagline}</p>
+          </div>
+          <div className="score-ring">
+            <span className="text-[0.6rem] font-sans font-semibold uppercase tracking-wider opacity-80">
+              Value
+            </span>
+            <span className="text-2xl font-bold">{score}</span>
+          </div>
+        </header>
+        <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
+          <div
+            className="meter-fill h-full rounded-full"
+            style={{ width: `${pct}%`, background: "var(--gradient-primary)" }}
+          />
         </div>
-        <div className="score-ring">
-          <span className="text-[0.6rem] font-sans font-semibold uppercase tracking-wider opacity-80">
-            Value
-          </span>
-          <span className="text-2xl font-bold">{score}</span>
-        </div>
-      </header>
-      <div className="article-body pt-2">{children}</div>
-    </article>
+        <div className="article-body pt-2">{children}</div>
+      </article>
+    </Reveal>
   );
 }
 
@@ -111,7 +163,7 @@ function KV({ k, children }: { k: string; children: ReactNode }) {
 function ProsCons({ pros, cons }: { pros: ReactNode[]; cons: ReactNode[] }) {
   return (
     <div className="my-6 grid gap-4 sm:grid-cols-2">
-      <div className="rounded-xl bg-secondary p-5">
+      <div className="card-lift rounded-2xl border border-primary/15 bg-secondary p-5">
         <p className="font-sans text-xs font-bold uppercase tracking-[0.12em] text-primary">Strengths</p>
         <ul className="mt-3 space-y-2.5 text-[0.95rem] leading-relaxed">
           {pros.map((p, i) => (
@@ -122,7 +174,7 @@ function ProsCons({ pros, cons }: { pros: ReactNode[]; cons: ReactNode[] }) {
           ))}
         </ul>
       </div>
-      <div className="rounded-xl border border-destructive/25 bg-destructive/5 p-5">
+      <div className="card-lift rounded-2xl border border-destructive/25 bg-destructive/5 p-5">
         <p className="font-sans text-xs font-bold uppercase tracking-[0.12em] text-destructive">
           Limitations
         </p>
@@ -141,7 +193,7 @@ function ProsCons({ pros, cons }: { pros: ReactNode[]; cons: ReactNode[] }) {
 
 function Verdict({ children }: { children: ReactNode }) {
   return (
-    <div className="mt-6 rounded-xl border-l-4 border-primary bg-accent p-5">
+    <div className="mt-6 rounded-2xl border border-primary/20 border-l-4 border-l-primary bg-accent p-5">
       <p className="font-sans text-xs font-bold uppercase tracking-[0.12em] text-accent-foreground">
         Value-for-money verdict
       </p>
@@ -165,25 +217,72 @@ function Index() {
   return (
     <div className="min-h-screen">
       {/* top bar */}
-      <header className="border-b border-border bg-card">
+      <header className="sticky top-0 z-30 border-b border-border/70 bg-card/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <span className="font-display text-lg font-bold tracking-tight">LogicMojo</span>
-          <span className="font-sans text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">
+          <span className="flex items-center gap-2 font-display text-lg font-extrabold tracking-tight">
+            <span
+              aria-hidden
+              className="inline-block h-6 w-6 rounded-lg"
+              style={{ background: "var(--gradient-primary)" }}
+            />
+            LogicMojo
+          </span>
+          <span className="font-sans text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground">
             AI Course Buying Guide · 2026
           </span>
         </div>
       </header>
 
       {/* hero */}
-      <div className="border-b border-border bg-card">
-        <div className="mx-auto max-w-3xl px-5 py-14 sm:py-20">
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-            Honest Value-for-Money Comparison for Indian Learners
-          </p>
-          <h1 className="mt-4 font-display text-[clamp(2rem,5vw,3.2rem)] font-semibold leading-[1.12] tracking-tight">
-            Which AI Course Is Actually Worth the Money in 2026?
-          </h1>
-          <p className="mt-5 font-sans text-sm text-muted-foreground">
+      <div className="relative overflow-hidden border-b border-border bg-card">
+        <div aria-hidden className="absolute inset-0 surface-grid opacity-60" />
+        <div
+          aria-hidden
+          className="orb -left-24 top-[-6rem] h-72 w-72"
+          style={{ background: "oklch(0.7 0.15 235 / 0.45)" }}
+        />
+        <div
+          aria-hidden
+          className="orb -right-20 bottom-[-8rem] h-80 w-80"
+          style={{ background: "oklch(0.62 0.17 265 / 0.35)", animationDelay: "3s" }}
+        />
+        <div className="relative mx-auto max-w-3xl px-5 py-16 sm:py-24">
+          <Reveal>
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/8 px-3.5 py-1.5 font-sans text-[0.7rem] font-bold uppercase tracking-[0.18em] text-primary">
+              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary" />
+              Honest value-for-money comparison · India
+            </span>
+            <h1 className="mt-6 font-display text-[clamp(2.1rem,5.4vw,3.6rem)] font-extrabold leading-[1.08] tracking-tight">
+              Which AI Course Is Actually{" "}
+              <span className="gradient-text">Worth the Money</span> in 2026?
+            </h1>
+            <p className="mt-5 max-w-2xl font-sans text-[1.05rem] leading-relaxed text-muted-foreground">
+              Ten programs scored on capability gained per rupee and per hour — fees, hidden costs, real
+              limitations, and who each one is genuinely for.
+            </p>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <div className="mt-9 grid gap-3 sm:grid-cols-3">
+              {[
+                ["10", "courses compared"],
+                ["₹0 – ₹4L+", "fee range examined"],
+                ["6", "scoring pillars"],
+              ].map(([big, small]) => (
+                <div
+                  key={small}
+                  className="card-lift rounded-2xl border border-border bg-background/70 p-4 backdrop-blur"
+                >
+                  <p className="font-display text-2xl font-extrabold tracking-tight text-primary">{big}</p>
+                  <p className="mt-1 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                    {small}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          <p className="relative mt-8 font-sans text-sm text-muted-foreground">
             Last updated: <em>[INSERT DATE]</em> · Fees and program details sanity-checked August 2026 —
             re-verify every fee on official pages before relying on it · Reading time: ~35 minutes
           </p>
@@ -193,7 +292,7 @@ function Index() {
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 lg:grid-cols-[240px_1fr]">
         {/* TOC */}
         <aside className="hidden lg:block">
-          <nav className="sticky top-8 rounded-xl border border-border bg-card p-5">
+          <nav className="sticky top-24 rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-soft)]">
             <p className="font-sans text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
               On this page
             </p>
@@ -212,7 +311,7 @@ function Index() {
 
         <main className="max-w-3xl">
           {/* quick answer */}
-          <div className="rounded-2xl border-2 border-primary/30 bg-card p-6 sm:p-8">
+          <div className="card-lift relative overflow-hidden rounded-3xl border border-primary/25 p-6 shadow-[var(--shadow-soft)] sm:p-8" style={{ background: "var(--gradient-surface)" }}>
             <p className="font-sans text-xs font-bold uppercase tracking-[0.15em] text-primary">
               Quick answer
             </p>
@@ -232,7 +331,7 @@ function Index() {
           </div>
 
           {/* disclosure */}
-          <div className="mt-6 rounded-xl border border-claim/40 bg-claim/5 p-5">
+          <div className="mt-6 rounded-2xl border border-claim/40 bg-claim/5 p-5">
             <p className="font-sans text-xs font-bold uppercase tracking-[0.15em] text-claim">
               Disclosure
             </p>
@@ -355,7 +454,7 @@ function Index() {
             </div>
 
             <H3>The six scoring pillars</H3>
-            <div className="my-6 overflow-x-auto rounded-xl border border-border bg-card">
+            <div className="my-6 overflow-x-auto rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)]">
               <table className="w-full min-w-[560px] border-collapse font-sans text-sm">
                 <thead>
                   <tr className="border-b border-border bg-secondary text-left">
