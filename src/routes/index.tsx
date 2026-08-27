@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { ComparisonTable } from "@/components/comparison-table";
+import { ClosingSections } from "@/components/closing-sections";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -207,8 +209,18 @@ function Verdict({ children }: { children: ReactNode }) {
 const toc = [
   ["what-worth-the-money-actually-means", "What “Worth the Money” Actually Means"],
   ["methodology", "How We Scored Value for Money"],
+  ["comparison-table", "The 10 Courses Compared (Table)"],
   ["reviews", "In-Depth Reviews of All 10 Courses"],
   ["who-should-invest", "Who Should Invest in a Paid AI Course"],
+  ["who-should-not", "Who Should NOT Buy an Expensive Course"],
+  ["online-vs-offline", "Online vs Offline in 2026"],
+  ["expensive-vs-affordable", "Expensive vs Affordable: Price Bands"],
+  ["hidden-costs", "Hidden Costs Before You Enroll"],
+  ["roi", "How to Calculate Course ROI"],
+  ["mistakes", "8 Costly Mistakes to Avoid"],
+  ["certificates", "Are AI Certificates Worth Paying For?"],
+  ["final-verdict", "Final Verdict"],
+  ["faqs", "Frequently Asked Questions"],
 ] as const;
 
 /* ---------- page ---------- */
@@ -592,6 +604,8 @@ function Index() {
               </p>
             </div>
           </Section>
+
+          <ComparisonTable />
 
           {/* Section 3: Reviews */}
           <Section id="reviews" title="In-Depth Reviews: All 10 AI Courses, Ranked by Value for Money">
@@ -1336,14 +1350,58 @@ function Index() {
               </p>
             </div>
           </Section>
+
+          <ClosingSections />
         </main>
       </div>
 
       <footer className="border-t border-border bg-card">
-        <div className="mx-auto max-w-3xl px-5 py-8 text-center font-sans text-xs text-muted-foreground">
-          Published by LogicMojo · Fees and program details change frequently — always confirm on official
-          pages before enrolling · This page contains editorial judgment; read the methodology before
-          trusting any ranking, including ours.
+        <div className="mx-auto max-w-6xl px-5 py-12">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div>
+              <span className="flex items-center gap-2 font-display text-lg font-extrabold tracking-tight">
+                <span
+                  aria-hidden
+                  className="inline-block h-6 w-6 rounded-lg"
+                  style={{ background: "var(--gradient-primary)" }}
+                />
+                LogicMojo
+              </span>
+              <p className="mt-3 font-sans text-sm leading-relaxed text-muted-foreground">
+                Practical AI education for working professionals — live, mentored, portfolio-first.
+              </p>
+            </div>
+            {[
+              ["Courses", ["AI & ML Course", "Generative AI Course", "Data Science Course", "DSA & System Design"]],
+              ["Resources", ["Curriculum PDF", "Batch Schedule", "Project Portfolio", "Blog", "FAQs"]],
+              ["Legal", ["Privacy Policy", "Terms", "Refund Policy"]],
+            ].map(([heading, items]) => (
+              <div key={heading as string}>
+                <p className="font-sans text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground">
+                  {heading}
+                </p>
+                <ul className="mt-3 space-y-2 font-sans text-sm">
+                  {(items as string[]).map((it) => (
+                    <li key={it}>
+                      <a href="#" className="text-foreground/80 transition-colors hover:text-primary">
+                        {it}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-border pt-6 font-sans text-xs text-muted-foreground">
+            <span>Contact: [EMAIL] · [PHONE] · [WHATSAPP]</span>
+            <span>Social: LinkedIn · YouTube · Instagram · X · GitHub</span>
+          </div>
+          <p className="mt-4 font-sans text-xs leading-relaxed text-muted-foreground">
+            © [YEAR] LogicMojo. All rights reserved. · Fees and program details change frequently — always
+            confirm on official pages before enrolling · This page contains editorial judgment; read the
+            methodology before trusting any ranking, including ours.
+          </p>
         </div>
       </footer>
     </div>
