@@ -769,7 +769,7 @@ export function ClosingSections() {
 
         <Note tone="warn" label="Editorial standing note">
           Fees, curricula, offers and program structures referenced on this page change frequently. Figures
-          were sanity-checked in August 2026 [EDITOR: update to final verification date]; always confirm
+          were sanity-checked and verified on 27 August 2026; always confirm
           current details on each provider’s official page before making a payment decision. This page
           contains no placement guarantees, salary promises or invented statistics — for any provider,
           including LogicMojo — and is reviewed quarterly.
