@@ -187,7 +187,11 @@ export function ClosingSections() {
         title="Expensive vs Affordable AI Courses: What the Extra Money Actually Buys"
       >
         <div className="article-body">
-          <p>Lay the market out by price band and the pattern becomes unmistakable:</p>
+          <p>
+            Lay the market out by price band and the pattern becomes unmistakable — each band below is
+            built from the footnoted provider fees in the table above, mapped against what that money
+            reliably delivers <VerifiedOn id="price-bands" />:
+          </p>
         </div>
 
         <div className="my-7 space-y-4">
