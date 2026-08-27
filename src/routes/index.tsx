@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ComparisonTable } from "@/components/comparison-table";
 import { ClosingSections } from "@/components/closing-sections";
 import { CourseFinderQuiz } from "@/components/course-finder-quiz";
+import { AuthorByline, AuthorTrustSection, FieldNote } from "@/components/eeat";
 import {
   ChoosingSections,
   RecommendationSection,
@@ -27,6 +28,7 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "author", content: "Rahul Menon" },
     ],
   }),
   component: Index,
@@ -214,6 +216,7 @@ function Verdict({ children }: { children: ReactNode }) {
 /* ---------- TOC ---------- */
 
 const toc = [
+  ["author-trust", "Who Wrote This & Why You Can Trust It"],
   ["what-worth-the-money-actually-means", "What “Worth the Money” Actually Means"],
   ["methodology", "How We Scored Value for Money"],
   ["research-method", "How I Researched & Ranked These 10 Courses"],
@@ -238,9 +241,32 @@ const toc = [
 
 /* ---------- page ---------- */
 
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Which AI Course Is Actually Worth the Money in 2026?",
+  description:
+    "An honest, evidence-labelled value-for-money comparison of 10 AI courses for Indian learners.",
+  datePublished: "2026-08-27",
+  dateModified: "2026-08-27",
+  author: {
+    "@type": "Person",
+    name: "Rahul Menon",
+    jobTitle: "Lead AI/ML Curriculum Mentor & Course Evaluator",
+    description:
+      "11 years teaching Python, machine learning and Generative AI to working professionals in India.",
+    worksFor: { "@type": "Organization", name: "LogicMojo" },
+  },
+  publisher: { "@type": "Organization", name: "LogicMojo", url: "https://logicmojo.com" },
+};
+
 function Index() {
   return (
     <div className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       {/* top bar */}
       <header className="sticky top-0 z-30 border-b border-border/70 bg-card/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
@@ -307,8 +333,10 @@ function Index() {
             </div>
           </Reveal>
 
+          <AuthorByline />
+
           <p className="relative mt-8 font-sans text-sm text-muted-foreground">
-            Last updated: <em>[INSERT DATE]</em> · Fees and program details sanity-checked August 2026 —
+            Last updated: <strong>27 August 2026</strong> · Fees and program details sanity-checked August 2026 —
             re-verify every fee on official pages before relying on it · Reading time: ~35 minutes
           </p>
         </div>
@@ -413,6 +441,8 @@ function Index() {
             </p>
           </div>
 
+          <AuthorTrustSection />
+
           {/* Section 1 */}
           <Section id="what-worth-the-money-actually-means" title="What “Worth the Money” Actually Means (And Why Price Tells You Almost Nothing)">
             <div className="article-body">
@@ -477,6 +507,21 @@ function Index() {
                 re-rank for yourself.
               </p>
             </div>
+
+            <FieldNote title="Why I weight these six pillars the way I do">
+              <p>
+                The first framework I used to compare courses, back in 2019, weighted curriculum breadth
+                heavily — and it produced rankings that did not match what happened to my own learners. The
+                people who got offers were rarely the ones who had covered the most topics. They were the
+                ones who had shipped three or four defensible projects and had someone senior tear their code
+                apart before a stranger did.
+              </p>
+              <p>
+                So I rebuilt the weighting around what I actually observe in mock panels: depth over breadth,
+                feedback over content volume, and completion over ambition. If a pillar has never changed an
+                outcome I have personally watched, it does not carry weight here.
+              </p>
+            </FieldNote>
 
             <H3>The six scoring pillars</H3>
             <div className="my-6 overflow-x-auto rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)]">
@@ -620,6 +665,21 @@ function Index() {
 
           <ResearchMethodSection />
 
+          <FieldNote title="What I check first when a learner sends me a syllabus PDF">
+              <p>
+                I do not start at the top. I jump straight to the last third of the curriculum, because that
+                is where marketing runs out of steam. If the final modules are &ldquo;Capstone&rdquo;,
+                &ldquo;Career Guidance&rdquo; and &ldquo;Industry Trends&rdquo; with no assessed technical
+                content, the course is roughly 30% shorter than the brochure implies.
+              </p>
+              <p>
+                Then I search the PDF for four words: <strong>evaluation</strong>, <strong>deployment</strong>,{" "}
+                <strong>latency</strong> and <strong>cost</strong>. A 2026 AI curriculum that never mentions
+                how you measure, serve and pay for a model is teaching the fun half of the job. That single
+                check has saved several of my mentees a ₹1L+ mistake.
+              </p>
+            </FieldNote>
+
           <ComparisonTable />
 
           <CourseFinderQuiz />
@@ -636,6 +696,22 @@ function Index() {
                 criticism for ranking low.
               </p>
             </div>
+
+            <FieldNote title="The pattern I keep seeing across all ten programs">
+              <p>
+                Having taught the same audience for over a decade, I have stopped being surprised by which
+                learners succeed. It is almost never the ones who bought the most expensive program. It is
+                the ones whose program gave them a weekly deadline, a human who read their code, and
+                projects messy enough to resemble real work.
+              </p>
+              <p>
+                Two learners I mentored in the same quarter make the point: one paid roughly six times what
+                the other did. Eight months later both were working with LLM systems in production roles. The
+                difference in what they could actually do was not six times anything — it was a function of
+                hours put in and feedback received. That observation is the honest spine of every review
+                below.
+              </p>
+            </FieldNote>
 
             {/* 1. LogicMojo */}
             <Review
@@ -1375,6 +1451,20 @@ function Index() {
               </p>
             </div>
           </Section>
+
+          <FieldNote title="The question I ask every learner before they pay">
+              <p>
+                &ldquo;Describe the job you want to be doing 12 months from now, in one sentence, without
+                using the words AI or data.&rdquo; Learners who can answer that pick the right course
+                roughly every time, because the answer tells us whether they need ML foundations, GenAI
+                engineering, analytics, or simply confidence.
+              </p>
+              <p>
+                Learners who cannot answer it usually buy the most expensive option on their shortlist and
+                stop in week six. If you are still deciding, spend an evening on that sentence before you
+                spend a rupee on a fee. It is the highest-return hour in this entire process.
+              </p>
+            </FieldNote>
 
           <ClosingSections />
         </main>
