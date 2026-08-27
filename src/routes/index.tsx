@@ -40,9 +40,16 @@ function Chip({ kind }: { kind: "verified" | "claim" | "editorial" | "verify" })
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
     <section>
-      <h2 id={id} className="article-h2">
-        {title}
-      </h2>
+      <Reveal>
+        <h2 id={id} className="article-h2">
+          <span
+            aria-hidden
+            className="mb-3 block h-1 w-12 rounded-full"
+            style={{ background: "var(--gradient-primary)" }}
+          />
+          {title}
+        </h2>
+      </Reveal>
       {children}
     </section>
   );
@@ -156,7 +163,7 @@ function KV({ k, children }: { k: string; children: ReactNode }) {
 function ProsCons({ pros, cons }: { pros: ReactNode[]; cons: ReactNode[] }) {
   return (
     <div className="my-6 grid gap-4 sm:grid-cols-2">
-      <div className="rounded-xl bg-secondary p-5">
+      <div className="card-lift rounded-2xl border border-primary/15 bg-secondary p-5">
         <p className="font-sans text-xs font-bold uppercase tracking-[0.12em] text-primary">Strengths</p>
         <ul className="mt-3 space-y-2.5 text-[0.95rem] leading-relaxed">
           {pros.map((p, i) => (
@@ -167,7 +174,7 @@ function ProsCons({ pros, cons }: { pros: ReactNode[]; cons: ReactNode[] }) {
           ))}
         </ul>
       </div>
-      <div className="rounded-xl border border-destructive/25 bg-destructive/5 p-5">
+      <div className="card-lift rounded-2xl border border-destructive/25 bg-destructive/5 p-5">
         <p className="font-sans text-xs font-bold uppercase tracking-[0.12em] text-destructive">
           Limitations
         </p>
@@ -186,7 +193,7 @@ function ProsCons({ pros, cons }: { pros: ReactNode[]; cons: ReactNode[] }) {
 
 function Verdict({ children }: { children: ReactNode }) {
   return (
-    <div className="mt-6 rounded-xl border-l-4 border-primary bg-accent p-5">
+    <div className="mt-6 rounded-2xl border border-primary/20 border-l-4 border-l-primary bg-accent p-5">
       <p className="font-sans text-xs font-bold uppercase tracking-[0.12em] text-accent-foreground">
         Value-for-money verdict
       </p>
@@ -285,7 +292,7 @@ function Index() {
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 lg:grid-cols-[240px_1fr]">
         {/* TOC */}
         <aside className="hidden lg:block">
-          <nav className="sticky top-8 rounded-xl border border-border bg-card p-5">
+          <nav className="sticky top-24 rounded-2xl border border-border bg-card p-5 shadow-[var(--shadow-soft)]">
             <p className="font-sans text-xs font-bold uppercase tracking-[0.15em] text-muted-foreground">
               On this page
             </p>
@@ -304,7 +311,7 @@ function Index() {
 
         <main className="max-w-3xl">
           {/* quick answer */}
-          <div className="rounded-2xl border-2 border-primary/30 bg-card p-6 sm:p-8">
+          <div className="card-lift relative overflow-hidden rounded-3xl border border-primary/25 p-6 shadow-[var(--shadow-soft)] sm:p-8" style={{ background: "var(--gradient-surface)" }}>
             <p className="font-sans text-xs font-bold uppercase tracking-[0.15em] text-primary">
               Quick answer
             </p>
@@ -324,7 +331,7 @@ function Index() {
           </div>
 
           {/* disclosure */}
-          <div className="mt-6 rounded-xl border border-claim/40 bg-claim/5 p-5">
+          <div className="mt-6 rounded-2xl border border-claim/40 bg-claim/5 p-5">
             <p className="font-sans text-xs font-bold uppercase tracking-[0.15em] text-claim">
               Disclosure
             </p>
@@ -447,7 +454,7 @@ function Index() {
             </div>
 
             <H3>The six scoring pillars</H3>
-            <div className="my-6 overflow-x-auto rounded-xl border border-border bg-card">
+            <div className="my-6 overflow-x-auto rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)]">
               <table className="w-full min-w-[560px] border-collapse font-sans text-sm">
                 <thead>
                   <tr className="border-b border-border bg-secondary text-left">
