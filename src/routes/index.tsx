@@ -1340,6 +1340,8 @@ function Index() {
               </p>
             </div>
           </Section>
+
+          <ClosingSections />
         </main>
       </div>
 
