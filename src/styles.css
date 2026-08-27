@@ -161,6 +161,40 @@
     background-color: color-mix(in oklab, var(--verify) 12%, transparent);
   }
 
+  .cite-ref {
+    font-family: var(--font-sans);
+    font-size: 0.7em;
+    font-weight: 700;
+    vertical-align: super;
+    line-height: 0;
+    margin-inline-start: 0.12em;
+    color: var(--color-primary);
+    text-decoration: none;
+    padding: 0.05em 0.18em;
+    border-radius: 0.3rem;
+    transition: background-color 0.15s ease;
+  }
+
+  .cite-ref:hover,
+  .cite-ref:focus-visible {
+    background-color: color-mix(in oklab, var(--primary) 14%, transparent);
+  }
+
+  .verified-stamp {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.1rem 0.45rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    color: var(--color-verified);
+    background-color: color-mix(in oklab, var(--verified) 12%, transparent);
+  }
+
   .score-ring {
     font-family: var(--font-display);
     background: var(--gradient-primary);
