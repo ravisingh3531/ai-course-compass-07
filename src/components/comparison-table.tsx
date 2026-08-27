@@ -175,7 +175,7 @@ export function ComparisonTable() {
 
       {/* desktop table */}
       <Reveal>
-        <div className="my-7 hidden overflow-x-auto rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)] lg:block">
+        <div className="my-7 hidden overflow-x-auto rounded-2xl border border-border bg-card shadow-[var(--shadow-soft)] lg:block lg:w-[calc(100vw-22rem)] lg:max-w-[1120px]">
           <table className="w-full min-w-[1080px] border-collapse font-sans text-[0.82rem]">
             <thead>
               <tr className="border-b border-border bg-secondary text-left">
