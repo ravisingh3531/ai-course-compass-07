@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ComparisonTable } from "@/components/comparison-table";
 import { ClosingSections } from "@/components/closing-sections";
 import { CourseFinderQuiz } from "@/components/course-finder-quiz";
+import { AuthorByline, AuthorTrustSection, FieldNote } from "@/components/eeat";
 import {
   ChoosingSections,
   RecommendationSection,
@@ -214,6 +215,7 @@ function Verdict({ children }: { children: ReactNode }) {
 /* ---------- TOC ---------- */
 
 const toc = [
+  ["author-trust", "Who Wrote This & Why You Can Trust It"],
   ["what-worth-the-money-actually-means", "What “Worth the Money” Actually Means"],
   ["methodology", "How We Scored Value for Money"],
   ["research-method", "How I Researched & Ranked These 10 Courses"],
@@ -307,8 +309,10 @@ function Index() {
             </div>
           </Reveal>
 
+          <AuthorByline />
+
           <p className="relative mt-8 font-sans text-sm text-muted-foreground">
-            Last updated: <em>[INSERT DATE]</em> · Fees and program details sanity-checked August 2026 —
+            Last updated: <strong>27 August 2026</strong> · Fees and program details sanity-checked August 2026 —
             re-verify every fee on official pages before relying on it · Reading time: ~35 minutes
           </p>
         </div>
@@ -412,6 +416,8 @@ function Index() {
               consider ours.
             </p>
           </div>
+
+          <AuthorTrustSection />
 
           {/* Section 1 */}
           <Section id="what-worth-the-money-actually-means" title="What “Worth the Money” Actually Means (And Why Price Tells You Almost Nothing)">
