@@ -27,7 +27,7 @@ function EvidenceRow({
 }: {
   claim: string;
   status: "verified" | "claim" | "editorial" | "verify";
-  detail: string;
+  detail: ReactNode;
 }) {
   return (
     <tr className="border-t border-border align-top">
