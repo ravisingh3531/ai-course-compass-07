@@ -64,6 +64,37 @@ function H3({ id, children }: { id?: string; children: ReactNode }) {
   );
 }
 
+/* ---------- scroll reveal ---------- */
+
+function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setVisible(true);
+            io.disconnect();
+          }
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className={`reveal${visible ? " is-visible" : ""}`} style={{ animationDelay: `${delay}ms` }}>
+      {children}
+    </div>
+  );
+}
+
 /* ---------- review card ---------- */
 
 interface ReviewProps {
@@ -75,25 +106,39 @@ interface ReviewProps {
 }
 
 function Review({ rank, name, score, tagline, children }: ReviewProps) {
+  const pct = Math.min(100, (parseFloat(score) / 10) * 100 || 0);
   return (
-    <article className="mt-12 rounded-2xl border border-border bg-card p-6 shadow-[0_1px_3px_oklch(0.27_0.025_55/0.06)] sm:p-9">
-      <header className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-5">
-        <div>
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-            #{rank} in this comparison
-          </p>
-          <h3 className="mt-1 font-display text-2xl font-semibold leading-snug">{name}</h3>
-          <p className="mt-1 font-sans text-sm font-medium italic text-muted-foreground">{tagline}</p>
+    <Reveal>
+      <article className="card-lift group relative mt-12 overflow-hidden rounded-3xl border border-border bg-card p-6 shadow-[var(--shadow-soft)] sm:p-9">
+        <div
+          aria-hidden
+          className="absolute inset-x-0 top-0 h-1 opacity-70"
+          style={{ background: "var(--gradient-primary)" }}
+        />
+        <header className="flex flex-wrap items-start justify-between gap-4 border-b border-border pb-5">
+          <div>
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-secondary px-2.5 py-1 font-sans text-[0.68rem] font-bold uppercase tracking-[0.14em] text-primary">
+              #{rank} in this comparison
+            </span>
+            <h3 className="mt-2.5 font-display text-2xl font-bold leading-snug tracking-tight">{name}</h3>
+            <p className="mt-1 font-sans text-sm font-medium text-muted-foreground">{tagline}</p>
+          </div>
+          <div className="score-ring">
+            <span className="text-[0.6rem] font-sans font-semibold uppercase tracking-wider opacity-80">
+              Value
+            </span>
+            <span className="text-2xl font-bold">{score}</span>
+          </div>
+        </header>
+        <div className="mt-4 h-1.5 w-full overflow-hidden rounded-full bg-secondary">
+          <div
+            className="meter-fill h-full rounded-full"
+            style={{ width: `${pct}%`, background: "var(--gradient-primary)" }}
+          />
         </div>
-        <div className="score-ring">
-          <span className="text-[0.6rem] font-sans font-semibold uppercase tracking-wider opacity-80">
-            Value
-          </span>
-          <span className="text-2xl font-bold">{score}</span>
-        </div>
-      </header>
-      <div className="article-body pt-2">{children}</div>
-    </article>
+        <div className="article-body pt-2">{children}</div>
+      </article>
+    </Reveal>
   );
 }
 
