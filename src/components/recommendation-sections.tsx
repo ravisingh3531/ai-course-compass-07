@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Cite, VerifiedOn } from "./citations";
 import { Chip, H3, Note, NumberCard, Reveal, Section, StatTile } from "@/components/article-kit";
 
 /* ------------------------------------------------------------------ */
@@ -81,8 +82,8 @@ export function RecommendationSection() {
           rel="noopener noreferrer"
         >
           logicmojo.com/success-story
-        </a>
-        .
+        </a>{" "}
+        <VerifiedOn id="logicmojo-outcomes" />.
       </Note>
 
       <H3>Why LogicMojo stands out on value for money</H3>
@@ -153,12 +154,24 @@ export function RecommendationSection() {
               <EvidenceRow
                 claim="Individual learner transitions and success stories"
                 status="claim"
-                detail="Self-published testimonials at logicmojo.com/success-story. Treat as provider-reported; validate independently by searching named alumni on LinkedIn."
+                detail={
+                  <>
+                    Self-published testimonials at logicmojo.com/success-story{" "}
+                    <VerifiedOn id="logicmojo-outcomes" />. Treat as provider-reported; validate
+                    independently by searching named alumni on LinkedIn.
+                  </>
+                }
               />
               <EvidenceRow
                 claim="Specific placement percentages, average salary or hiring-partner counts"
                 status="verify"
-                detail="We publish no such figure — for any provider on this page — because none of them are independently audited. Ask for a cohort-level, date-stamped report before believing one."
+                detail={
+                  <>
+                    We publish no such figure — for any provider on this page — because none of them are
+                    independently audited <Cite id="outcome-caution" />. Ask for a cohort-level, date-stamped
+                    report before believing one.
+                  </>
+                }
               />
               <EvidenceRow
                 claim="Best overall value for beginners and career switchers"
