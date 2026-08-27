@@ -210,25 +210,72 @@ function Index() {
   return (
     <div className="min-h-screen">
       {/* top bar */}
-      <header className="border-b border-border bg-card">
+      <header className="sticky top-0 z-30 border-b border-border/70 bg-card/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <span className="font-display text-lg font-bold tracking-tight">LogicMojo</span>
-          <span className="font-sans text-xs font-medium uppercase tracking-[0.15em] text-muted-foreground">
+          <span className="flex items-center gap-2 font-display text-lg font-extrabold tracking-tight">
+            <span
+              aria-hidden
+              className="inline-block h-6 w-6 rounded-lg"
+              style={{ background: "var(--gradient-primary)" }}
+            />
+            LogicMojo
+          </span>
+          <span className="font-sans text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground">
             AI Course Buying Guide · 2026
           </span>
         </div>
       </header>
 
       {/* hero */}
-      <div className="border-b border-border bg-card">
-        <div className="mx-auto max-w-3xl px-5 py-14 sm:py-20">
-          <p className="font-sans text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-            Honest Value-for-Money Comparison for Indian Learners
-          </p>
-          <h1 className="mt-4 font-display text-[clamp(2rem,5vw,3.2rem)] font-semibold leading-[1.12] tracking-tight">
-            Which AI Course Is Actually Worth the Money in 2026?
-          </h1>
-          <p className="mt-5 font-sans text-sm text-muted-foreground">
+      <div className="relative overflow-hidden border-b border-border bg-card">
+        <div aria-hidden className="absolute inset-0 surface-grid opacity-60" />
+        <div
+          aria-hidden
+          className="orb -left-24 top-[-6rem] h-72 w-72"
+          style={{ background: "oklch(0.7 0.15 235 / 0.45)" }}
+        />
+        <div
+          aria-hidden
+          className="orb -right-20 bottom-[-8rem] h-80 w-80"
+          style={{ background: "oklch(0.62 0.17 265 / 0.35)", animationDelay: "3s" }}
+        />
+        <div className="relative mx-auto max-w-3xl px-5 py-16 sm:py-24">
+          <Reveal>
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/8 px-3.5 py-1.5 font-sans text-[0.7rem] font-bold uppercase tracking-[0.18em] text-primary">
+              <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-primary" />
+              Honest value-for-money comparison · India
+            </span>
+            <h1 className="mt-6 font-display text-[clamp(2.1rem,5.4vw,3.6rem)] font-extrabold leading-[1.08] tracking-tight">
+              Which AI Course Is Actually{" "}
+              <span className="gradient-text">Worth the Money</span> in 2026?
+            </h1>
+            <p className="mt-5 max-w-2xl font-sans text-[1.05rem] leading-relaxed text-muted-foreground">
+              Ten programs scored on capability gained per rupee and per hour — fees, hidden costs, real
+              limitations, and who each one is genuinely for.
+            </p>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <div className="mt-9 grid gap-3 sm:grid-cols-3">
+              {[
+                ["10", "courses compared"],
+                ["₹0 – ₹4L+", "fee range examined"],
+                ["6", "scoring pillars"],
+              ].map(([big, small]) => (
+                <div
+                  key={small}
+                  className="card-lift rounded-2xl border border-border bg-background/70 p-4 backdrop-blur"
+                >
+                  <p className="font-display text-2xl font-extrabold tracking-tight text-primary">{big}</p>
+                  <p className="mt-1 font-sans text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                    {small}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          <p className="relative mt-8 font-sans text-sm text-muted-foreground">
             Last updated: <em>[INSERT DATE]</em> · Fees and program details sanity-checked August 2026 —
             re-verify every fee on official pages before relying on it · Reading time: ~35 minutes
           </p>
