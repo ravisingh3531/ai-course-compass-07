@@ -121,7 +121,7 @@ export const SOURCES = {
     kind: "editorial",
     note: "No placement percentage, average-salary figure, hike multiple or hiring-partner count is stated on this page unless a named source publishes it. Where providers advertise such numbers without a verifiable methodology, the claim is described, not repeated as fact.",
   },
-} satisfies Record<string, Source>;
+} as const satisfies Record<string, Source>;
 
 export type SourceId = keyof typeof SOURCES;
 
@@ -132,7 +132,7 @@ export const citeNumber = (id: SourceId) => ORDER.indexOf(id) + 1;
 
 export function Cite({ id }: { id: SourceId }) {
   const n = citeNumber(id);
-  const s = SOURCES[id];
+  const s: Source = SOURCES[id];
   return (
     <a
       href={`#ref-${n}`}
@@ -148,7 +148,7 @@ export function Cite({ id }: { id: SourceId }) {
 
 /** Compact "verified on" stamp for use beside a fee or outcome figure. */
 export function VerifiedOn({ id }: { id: SourceId }) {
-  const s = SOURCES[id];
+  const s: Source = SOURCES[id];
   return (
     <span className="verified-stamp">
       Verified on {s.verifiedOn}
@@ -175,7 +175,7 @@ export function ReferencesSection() {
       <Reveal>
         <ol className="my-6 space-y-4">
           {ORDER.map((id, i) => {
-            const s = SOURCES[id];
+            const s: Source = SOURCES[id];
             return (
               <li
                 key={id}
