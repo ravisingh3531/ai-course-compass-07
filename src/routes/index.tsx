@@ -611,7 +611,13 @@ function Index() {
             </div>
           </Section>
 
+          <ResearchMethodSection />
+
           <ComparisonTable />
+
+          <CourseFinderQuiz />
+
+
 
           {/* Section 3: Reviews */}
           <Section id="reviews" title="In-Depth Reviews: All 10 AI Courses, Ranked by Value for Money">
