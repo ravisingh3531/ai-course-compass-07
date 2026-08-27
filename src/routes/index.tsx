@@ -2,6 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ComparisonTable } from "@/components/comparison-table";
 import { ClosingSections } from "@/components/closing-sections";
+import { CourseFinderQuiz } from "@/components/course-finder-quiz";
+import {
+  ChoosingSections,
+  RecommendationSection,
+  ResearchMethodSection,
+} from "@/components/recommendation-sections";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -209,9 +216,15 @@ function Verdict({ children }: { children: ReactNode }) {
 const toc = [
   ["what-worth-the-money-actually-means", "What “Worth the Money” Actually Means"],
   ["methodology", "How We Scored Value for Money"],
+  ["research-method", "How I Researched & Ranked These 10 Courses"],
   ["comparison-table", "The 10 Courses Compared (Table)"],
+  ["course-finder", "Course Finder Quiz: What Fits Me?"],
   ["reviews", "In-Depth Reviews of All 10 Courses"],
+  ["my-recommendation", "My Research-Backed Recommendations"],
+  ["how-to-choose", "How to Choose a Course Worth the Money"],
+  ["beyond-marketing", "What to Look For Beyond Marketing"],
   ["who-should-invest", "Who Should Invest in a Paid AI Course"],
+
   ["who-should-not", "Who Should NOT Buy an Expensive Course"],
   ["online-vs-offline", "Online vs Offline in 2026"],
   ["expensive-vs-affordable", "Expensive vs Affordable: Price Bands"],
@@ -605,7 +618,13 @@ function Index() {
             </div>
           </Section>
 
+          <ResearchMethodSection />
+
           <ComparisonTable />
+
+          <CourseFinderQuiz />
+
+
 
           {/* Section 3: Reviews */}
           <Section id="reviews" title="In-Depth Reviews: All 10 AI Courses, Ranked by Value for Money">
@@ -1304,6 +1323,12 @@ function Index() {
               </Verdict>
             </Review>
           </Section>
+
+          <RecommendationSection />
+
+          <ChoosingSections />
+
+
 
           {/* Section 4 */}
           <Section id="who-should-invest" title="Who Should Invest in a Paid AI Course in 2026">
