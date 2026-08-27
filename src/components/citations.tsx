@@ -121,6 +121,18 @@ export const SOURCES = {
     kind: "editorial",
     note: "No placement percentage, average-salary figure, hike multiple or hiring-partner count is stated on this page unless a named source publishes it. Where providers advertise such numbers without a verifiable methodology, the claim is described, not repeated as fact.",
   },
+  "offline-fees": {
+    label: "Offline / classroom AI programme fee guides, India",
+    verifiedOn: "27 August 2026",
+    kind: "independent",
+    note: "Aggregated fee ranges published by Indian training-institute fee guides for classroom AI/ML programmes. Ranges vary sharply by city and institute tier; treat as a band, not a quote.",
+  },
+  "price-bands": {
+    label: "Price-band mapping used in this guide",
+    verifiedOn: "27 August 2026",
+    kind: "editorial",
+    note: "The five price bands and what each realistically buys are the author's synthesis of the ten fee sources above plus a decade of mentoring learners across all five bands. It is a judgment, clearly labelled as one.",
+  },
 } as const satisfies Record<string, Source>;
 
 export type SourceId = keyof typeof SOURCES;
