@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { ComparisonTable } from "@/components/comparison-table";
+import { ClosingSections } from "@/components/closing-sections";
 
 export const Route = createFileRoute("/")({
   head: () => ({
