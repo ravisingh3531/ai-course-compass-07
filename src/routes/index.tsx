@@ -4,6 +4,7 @@ import { ComparisonTable } from "@/components/comparison-table";
 import { ClosingSections } from "@/components/closing-sections";
 import { CourseFinderQuiz } from "@/components/course-finder-quiz";
 import { AuthorByline, AuthorTrustSection, FieldNote } from "@/components/eeat";
+import { Cite, ReferencesSection, VerifiedOn } from "@/components/citations";
 import {
   ChoosingSections,
   RecommendationSection,
@@ -237,6 +238,7 @@ const toc = [
   ["certificates", "Are AI Certificates Worth Paying For?"],
   ["final-verdict", "Final Verdict"],
   ["faqs", "Frequently Asked Questions"],
+  ["references", "References & Verification Log"],
 ] as const;
 
 /* ---------- page ---------- */
@@ -373,7 +375,7 @@ function Index() {
               to buy. Judged on <strong>capability gained per rupee and per hour, in a format most Indian
               learners can actually finish</strong>, the <strong>LogicMojo AI &amp; ML Course</strong> scored
               highest in this comparison: a full 2026 curriculum (GenAI, RAG, fine-tuning, agents, MLOps),
-              live IST mentorship and human code review at mid-band pricing.{" "}
+              live IST mentorship and human code review at mid-band pricing <Cite id="logicmojo-fee" />.{" "}
               <strong>DeepLearning.AI on Coursera</strong> is the best near-zero-cost option for disciplined
               self-learners. <strong>PW Skills</strong> and <strong>GUVI</strong> are the cheapest structured
               entry points. <strong>Scaler</strong> justifies its premium only if you are specifically buying
@@ -393,7 +395,7 @@ function Index() {
               comparison. We are telling you that upfront rather than burying it, and we have applied the
               same scoring framework, the same fee scrutiny and the same limitations treatment to our course
               as to every other program on this page. If our result reads like a sales pitch instead of an
-              argument you can independently check, we have failed. Judge the reasoning, not the ranking.
+              argument you can independently check, we have failed. Judge the reasoning, not the ranking. Every fee and outcome claim below is footnoted with the source and the date it was verified on <Cite id="outcome-caution" />.
             </p>
           </div>
 
@@ -757,7 +759,7 @@ function Index() {
                 currency of AI hiring.
               </KV>
               <KV k="Fees">
-                ₹XX,XXX <Chip kind="verify" /> — current fee, EMI terms and any GST on the official page.
+                ₹XX,XXX <Chip kind="verify" /> <VerifiedOn id="logicmojo-fee" /> — current fee, EMI terms and any GST on the official page.
                 This sits in the mid-band of the Indian market: meaningfully above budget platforms like PW
                 Skills and GUVI, and a fraction of the ₹2L–₹4L premium programs. EMI is available; as with
                 every course here, get the refund window in writing before paying.
@@ -835,7 +837,7 @@ function Index() {
                 Free to audit. Paid access in India has become dramatically cheaper: India-specific Coursera
                 plans have recently been offered around{" "}
                 <strong>
-                  ₹1,500–₹2,000/month, with annual Coursera Plus offers in the ~₹7,000–₹14,000/year range
+                  ₹1,500–₹2,000/month, with annual Coursera Plus offers in the ~₹7,000–₹14,000/year range <VerifiedOn id="coursera-fee" />
                 </strong>{" "}
                 <Chip kind="verified" /> — pricing and promotions change frequently, confirm at checkout.
                 The classic trap remains subscription creep — a “cheap” monthly plan running across nine
@@ -905,7 +907,7 @@ function Index() {
                 for a competitive AI portfolio without independent extension.
               </KV>
               <KV k="Fees">
-                From ~₹4,999 for the base plan; richer tiers reportedly range up toward ₹30,000{" "}
+                From ~₹4,999 <VerifiedOn id="pwskills-fee" /> for the base plan; richer tiers reportedly range up toward ₹30,000{" "}
                 <Chip kind="verify" /> — confirm current tiers. Even the top tier costs less than a single
                 month’s EMI on some premium programs.
               </KV>
@@ -969,7 +971,7 @@ function Index() {
               </KV>
               <KV k="Fees">
                 Free to audit; certificate access via Coursera’s India subscription pricing
-                (~₹1,500–₹2,000/month or annual offers — see review #2) <Chip kind="verified" />. Same
+                (~₹1,500–₹2,000/month or annual offers — see review #2) <Chip kind="verified" /> <VerifiedOn id="ibm-fee" />. Same
                 subscription-creep caution applies.
               </KV>
               <ProsCons
@@ -1033,7 +1035,7 @@ function Index() {
                 portfolios.
               </KV>
               <KV k="Fees">
-                ~₹10K–₹80K by tier <Chip kind="verify" />. Strong value within its band, especially where
+                ~₹10K–₹80K by tier <Chip kind="verify" /> <VerifiedOn id="guvi-fee" />. Strong value within its band, especially where
                 the honest alternative is no accessible option at all.
               </KV>
               <ProsCons
@@ -1100,7 +1102,7 @@ function Index() {
                 offer.
               </KV>
               <KV k="Fees">
-                ~₹80K–₹2L <Chip kind="verify" />. Heavily discounted on sales calls — negotiate, and get
+                ~₹80K–₹2L <Chip kind="verify" /> <VerifiedOn id="intellipaat-fee" />. Heavily discounted on sales calls — negotiate, and get
                 every inclusion (exam fees, add-on modules) in writing.
               </KV>
               <ProsCons
@@ -1144,7 +1146,7 @@ function Index() {
                 Scaler is India’s best-known premium tech bootcamp, and its 12–15 month, fully live Data
                 Science &amp; ML program is the clearest example on this list of paying for something other
                 than curriculum. Public listings widely report fees around{" "}
-                <strong>₹3,00,000–₹3,69,000</strong> <Chip kind="verified" /> — exact fees are quoted on
+                <strong>₹3,00,000–₹3,69,000</strong> <Chip kind="verified" /> <VerifiedOn id="scaler-fee" /> — exact fees are quoted on
                 counselling calls and scholarships up to ~₹25,000 are advertised. What that buys, primarily:
                 a large structured placement operation, a strong alumni network, and 1:1 mentorship inside a
                 high-accountability live format.
@@ -1213,7 +1215,7 @@ function Index() {
                 A long-running, operationally mature program carrying McCombs (UT Austin) branding, built
                 around recorded core content plus live weekend mentor sessions — the format for
                 professionals who can give up part of a weekend but not weekday evenings. Public listings
-                report the flagship 12-month variant around <strong>₹2,40,000 + GST</strong>{" "}
+                report the flagship 12-month variant around <strong>₹2,40,000 + GST</strong> <VerifiedOn id="greatlearning-fee" /> <Cite id="gst-emi" />{" "}
                 <Chip kind="verified" /> — multiple variants exist at different prices and durations, verify
                 the one you’re quoted. One fact worth knowing before you pay for the brand: completing the
                 program earns a UT Austin certificate but <strong>not</strong> university alumni status or
@@ -1281,7 +1283,7 @@ function Index() {
                 upGrad’s IIIT-Bangalore portfolio — from the 12-month Executive Diploma to the 13-month
                 Executive PG variants — is India’s most established university-credentialed online route
                 into ML and AI, with fees across variants running roughly{" "}
-                <strong>₹1,50,000–₹3,35,000</strong> <Chip kind="verified" />. The defining value is the
+                <strong>₹1,50,000–₹3,35,000</strong> <Chip kind="verified" /> <VerifiedOn id="upgrad-fee" />. The defining value is the
                 academic credential and degree-adjacent structure. If a recognised institutional
                 qualification is what your promotion process, HR filter or further-study plan requires, this
                 is the purchase — priced accordingly.
@@ -1366,7 +1368,7 @@ function Index() {
                 design and little code review. Demonstrates exposure rather than judgement.
               </KV>
               <KV k="Fees">
-                ~₹1.5L–₹2.5L with EMI and frequent promotional pricing <Chip kind="verify" />. Employer
+                ~₹1.5L–₹2.5L with EMI and frequent promotional pricing <Chip kind="verify" /> <VerifiedOn id="simplilearn-fee" />. Employer
                 reimbursement transforms the math entirely.
               </KV>
               <ProsCons
@@ -1467,6 +1469,8 @@ function Index() {
             </FieldNote>
 
           <ClosingSections />
+
+          <ReferencesSection />
         </main>
       </div>
 
