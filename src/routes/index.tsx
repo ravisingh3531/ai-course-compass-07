@@ -2,6 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ComparisonTable } from "@/components/comparison-table";
 import { ClosingSections } from "@/components/closing-sections";
+import { CourseFinderQuiz } from "@/components/course-finder-quiz";
+import {
+  ChoosingSections,
+  RecommendationSection,
+  ResearchMethodSection,
+} from "@/components/recommendation-sections";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
