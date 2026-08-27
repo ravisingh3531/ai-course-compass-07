@@ -28,6 +28,7 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "author", content: "Rahul Menon" },
     ],
   }),
   component: Index,
@@ -240,9 +241,32 @@ const toc = [
 
 /* ---------- page ---------- */
 
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: "Which AI Course Is Actually Worth the Money in 2026?",
+  description:
+    "An honest, evidence-labelled value-for-money comparison of 10 AI courses for Indian learners.",
+  datePublished: "2026-08-27",
+  dateModified: "2026-08-27",
+  author: {
+    "@type": "Person",
+    name: "Rahul Menon",
+    jobTitle: "Lead AI/ML Curriculum Mentor & Course Evaluator",
+    description:
+      "11 years teaching Python, machine learning and Generative AI to working professionals in India.",
+    worksFor: { "@type": "Organization", name: "LogicMojo" },
+  },
+  publisher: { "@type": "Organization", name: "LogicMojo", url: "https://logicmojo.com" },
+};
+
 function Index() {
   return (
     <div className="min-h-screen">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       {/* top bar */}
       <header className="sticky top-0 z-30 border-b border-border/70 bg-card/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
