@@ -209,8 +209,18 @@ function Verdict({ children }: { children: ReactNode }) {
 const toc = [
   ["what-worth-the-money-actually-means", "What “Worth the Money” Actually Means"],
   ["methodology", "How We Scored Value for Money"],
+  ["comparison-table", "The 10 Courses Compared (Table)"],
   ["reviews", "In-Depth Reviews of All 10 Courses"],
   ["who-should-invest", "Who Should Invest in a Paid AI Course"],
+  ["who-should-not", "Who Should NOT Buy an Expensive Course"],
+  ["online-vs-offline", "Online vs Offline in 2026"],
+  ["expensive-vs-affordable", "Expensive vs Affordable: Price Bands"],
+  ["hidden-costs", "Hidden Costs Before You Enroll"],
+  ["roi", "How to Calculate Course ROI"],
+  ["mistakes", "8 Costly Mistakes to Avoid"],
+  ["certificates", "Are AI Certificates Worth Paying For?"],
+  ["final-verdict", "Final Verdict"],
+  ["faqs", "Frequently Asked Questions"],
 ] as const;
 
 /* ---------- page ---------- */
